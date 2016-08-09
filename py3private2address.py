@@ -15,7 +15,7 @@ class Private2Address():
     def __init__(self, private_key):
         self.private_key = private_key
         self.NID_secp256k1 = 714
-        self.bitcoinaddress_uncompress,self.bitcoinaddress_compress = self._get_bitcoin_address()
+        self.bitcoinaddress_uncompressed,self.bitcoinaddress_compressed = self._get_bitcoin_address()
 
     def _get_public_key(self, private_key, curve_name):
         k = ssl_library.EC_KEY_new_by_curve_name(curve_name)
@@ -67,4 +67,4 @@ class Private2Address():
 
 if __name__ == '__main__':
     p2a=Private2Address('5HpHagT65TZzG1PH3CSu63k8DbpvD8s5ip4nEB3kEsreAnchuDf')
-    print(p2a.bitcoinaddress_uncompress, p2a.bitcoinaddress_compress)
+    print(p2a.bitcoinaddress_uncompressed, p2a.bitcoinaddress_compressed)

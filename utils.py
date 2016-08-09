@@ -13,9 +13,16 @@ def whether_privatekey(privatekey):
     except:
         return False
 
-def whether_compressed(privatekey):
+def whether_compressed_privatekey(privatekey):
     private_key_decode = base58.b58decode_check(privatekey)
     if len(private_key_decode) ==33:
         return False
     elif len(private_key_decode) ==34:
         return True
+
+def whether_bitcoinaddress(bitcoinaddress):
+    try:
+        private_key_decode = base58.b58decode_check(bitcoinaddress)
+        return True
+    except:
+        return False
