@@ -38,3 +38,12 @@ def int_to_privatekey(number):
     uncompressed = base58.b58encode_check(b'\x80'+int_to_32hex(number))
     compressed = base58.b58encode_check(b'\x80'+int_to_32hex(number)+b'\x01')
     return uncompressed, compressed
+
+def privatekey_to_int(privatekey):
+    if whether_compressed_privatekey(privatekey):
+        hex32private = base58.b58decode_check(privatekey)[1:-1]
+    else:
+        hex32private = base58.b58decode_check(privatekey)[1:]
+    str_bin = ''.join([bin(x)[2:].rjust(8, '0') for x in hex32private])
+    number = int(str_bin,2)
+    return number
