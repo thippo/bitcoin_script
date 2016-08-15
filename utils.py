@@ -26,3 +26,15 @@ def whether_bitcoinaddress(bitcoinaddress):
         return True
     except:
         return False
+
+def int_to_32hex(number):
+    assert isinstance(number, int) and number>0, 'number must be positive integer'
+    str_bin = bin(number)[2:].rjust(256, '0')
+    hex_privatekey = bytes([int(str_bin[x*8:x*8+8], 2) for x in range(32)])
+    return hex_privatekey
+
+def int_to_privatekey(number):
+    assert isinstance(number, int) and number>0, 'number must be positive integer'
+    uncompressed = base58.b58encode_check(b'\x80'+int_to_32hex(number))
+    compressed = base58.b58encode_check(b'\x80'+int_to_32hex(number)+b'\x01')
+    return uncompressed, compressed
